@@ -5,21 +5,46 @@
 #         self.left = left
 #         self.right = right
 
+from collections import deque
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        
-        # Base case: if the current node is None, there's nothing to invert
+        if not root:
+            return None
+
+        # Initialize a queue for BFS
+        queue = deque([root])
+
+        while queue:
+            node = queue.popleft()  # Process current node
+
+            # Swap children of current node
+            node.left, node.right = node.right, node.left
+
+            # Add children to queue if they exist
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+        return root
+
+
+        """
+        Recurisve Solution:
+
+        # Base case: if the node is None, return None (empty tree or end of branch)
         if not root:
             return None
         
-        # Swap the left and right children of the current node
-        root.left, root.right = root.right, root.left       
+        # Swap the left and right child pointers of the current node
+        root.left, root.right = root.right, root.left
 
-        # Recursively invert the left subtree (which was originally the right)
+        # Recursively invert the left subtree (which was originally the right subtree)
         self.invertTree(root.left)
 
-        # Recursively invert the right subtree (which was originally the left)
+        # Recursively invert the right subtree (which was originally the left subtree)
         self.invertTree(root.right)
 
-        # Return the current node after its subtree has been inverted
+        # Return the root of the inverted tree
         return root
+        """
