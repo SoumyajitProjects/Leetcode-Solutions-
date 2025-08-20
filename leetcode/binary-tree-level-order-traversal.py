@@ -5,30 +5,33 @@
 #         self.left = left
 #         self.right = right
 
+import collections
+
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        # Result list to store the values at each level
-        res = []
+        # If the tree is empty, return an empty list
+        if not root:
+            return []
+        
+        res = []                          # Final result: list of levels
+        q = collections.deque()           # Queue to support BFS
+        q.append(root)                    # Start with the root node
 
-        # Initialize a queue using deque for BFS traversal
-        q = collections.deque()
-        q.append(root)  # Start with the root node
-
-        # Loop until the queue is empty
+        # Process nodes level by level
         while q:
-            qLen = len(q)  # Number of nodes at the current level
-            level = []     # List to store values at this level
-
-            # Process all nodes at the current level
-            for i in range(qLen):
-                node = q.popleft()  # Pop the node from the left of the queue
-                if node:
-                    level.append(node.val)      # Add node's value to the level list
-                    q.append(node.left)         # Add left child to queue (even if None)
-                    q.append(node.right)        # Add right child to queue (even if None)
-
-            # Only add non-empty levels to the result
+            level = []                    # Temporary list to store current level
+            for i in range(len(q)):       # Number of nodes in this level
+                node = q.popleft()        # Dequeue the next node
+                level.append(node.val)    # Add the node's value to current level
+                
+                # Enqueue children for the next level
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            
+            # Append the completed level to result
             if level:
                 res.append(level)
-
-        return res  # Return the list of levels
+        
+        return res                        # Return all levels
