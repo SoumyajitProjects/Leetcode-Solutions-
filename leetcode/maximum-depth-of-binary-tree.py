@@ -12,8 +12,13 @@ class Solution:
         if not root:
             return 0
         
-        res = 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
-        return res
+        if not root.left:
+            return 1 + self.maxDepth(root.right)
+        if not root.right:
+            return 1 + self.maxDepth(root.left)
+        
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        
         """
         BFS:
         if not root:
