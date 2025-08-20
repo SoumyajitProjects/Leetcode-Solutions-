@@ -18,7 +18,7 @@ class Solution:
             if not a and not b:
                 continue                   # both empty at this spot → OK
             if not a or not b or a.val != b.val:
-                return False               # one empty, one not
+                return False               # one empty, one not or values do not match
 
             # enqueue children in the same order
             queue.append((a.left,  b.left))
