@@ -5,8 +5,32 @@
 #         self.left = left
 #         self.right = right
 
+from collections import deque
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+
+        # Iterative BFS Solution 
+        queue = deque([(p, q)])
+
+        while queue:
+            a, b = queue.popleft()
+
+            if not a and not b:
+                continue                   # both empty at this spot → OK
+            if not a or not b or a.val != b.val:
+                return False               # one empty, one not
+
+            # enqueue children in the same order
+            queue.append((a.left,  b.left))
+            queue.append((a.right, b.right))
+
+        return True
+            
+
+
+        """
+        Recursive DFS Solution:
+
         # If both nodes are None, the trees are structurally identical at this branch
         if not p and not q:
             return True
@@ -21,3 +45,4 @@ class Solution:
             self.isSameTree(p.left, q.left) and  # Check left subtree
             self.isSameTree(p.right, q.right)    # Check right subtree
         )
+        """
