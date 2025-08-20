@@ -5,8 +5,6 @@
 #         self.left = left
 #         self.right = right
 
-from collections import deque
-
 class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
         # If the tree is empty, return an empty list
@@ -14,7 +12,7 @@ class Solution:
             return []
         
         res = []  # Final result to hold levels of nodes
-        q = deque()  # Queue to perform BFS (breadth-first search)
+        q = collections.deque()  # Queue to perform BFS (breadth-first search)
         q.append(root)  # Start BFS from the root node
 
         # Standard BFS loop
