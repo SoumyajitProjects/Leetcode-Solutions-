@@ -32,6 +32,8 @@ class Solution:
             
 
         """
+        Recurisve Solution:
+        
         res = []   # This list will store the traversal result in preorder order
 
         # Define a helper function for recursive preorder traversal
